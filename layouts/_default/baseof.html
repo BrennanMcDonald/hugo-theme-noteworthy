@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <!-- Default base template. Other templates define the "main" portion in this template -->
-<html lang="{{ $.Site.LanguageCode | default "en" }}">
-    {{ partial "head.html" . }}
-    <body>
-        {{ partial "nav.html" . }}
-        <div id="content" class="content-container">
-        {{ block "main" . }}
-        {{ end }}
-        {{ partial "math.html" . }}
-        </div>
-        {{ partial "footer-mobile.html" . }}
-    </body>
+<html lang="{{ $.Site.LanguageCode | default " en " }}">
+{{ partial "head.html" . }}
+
+<body>
+    {{ partial "nav.html" . }}
+    <div id="content" class="content-container">
+        {{ block "main" . }} {{ end }} {{ partial "math.html" . }}
+    </div>
+    {{ partial "footer-mobile.html" . }}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-79437382-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-79437382-3');
+    </script>
+</body>
+
 </html>
