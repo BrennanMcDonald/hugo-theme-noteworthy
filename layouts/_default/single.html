@@ -1,20 +1,50 @@
 {{ define "main" }}
 <h1 class="post-title">{{ .Title }}</h1>
-    <time>{{ .Date.Format "January 2, 2006" }}</time>
-    <div>
-        <p>
+<time>{{ .Date.Format "January 2, 2006" }}</time>
+<div>
+    <p>
         {{ .Content }}
-        </p>
-    </div>
-    {{ template "_internal/disqus.html" . }}
+    </p>
+</div>
+{{ template "_internal/disqus.html" . }}
 
-    <div class="page-footer">
-        <hr class="footer-divider">
-        {{if .Params.tags}}
-        {{ range .Params.tags }}
-            <a class="tag" href="/tags/{{ . | urlize }}">#{{.}}</a>
-        {{ end }}
-      {{ end }}
-    </div>
+<div class="page-footer">
+    <hr class="footer-divider"> {{if .Params.tags}} {{ range .Params.tags }}
+    <a class="tag" href="/tags/{{ . | urlize }}">#{{.}}</a> {{ end }} {{ end }}
+</div>
+
+<script>
+    document.onreadystatechange = (x) => {
+        var modal = document.getElementById("img-modal");
+        modal.getElementsByTagName("span")[0].onclick = function() {
+            modal.style.display = "none";
+        }
+        modal.onclick = (x) => {
+            if (x.target.id !== "img01") {
+                modal.style.display = "none";
+            }
+        }
+        if (document.readyState === "complete") {
+            for (var i = 0; i < document.getElementsByTagName("img").length; i++) {
+                var item = document.getElementsByTagName("img").item(i);
+                item.onclick = (element) => {
+                    modal.getElementsByClassName("modal-content")[0].src = element.target.src;
+                    modal.getElementsByClassName("caption")[0].innerHTML = element.target.alt;
+                    modal.style.display = "block";
+                }
+            }
+        }
+    }
+</script>
+
+<!-- The Modal -->
+<div id="img-modal" class="modal">
+    <!-- The Close Button -->
+    <span class="close">&times;</span>
+    <!-- Modal Content (The Image) -->
+    <img class="modal-content" id="img01">
+    <!-- Modal Caption (Image Text) -->
+    <div id="caption" class="caption"></div>
+</div>
 
 {{end}}
